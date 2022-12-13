@@ -6,15 +6,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Http\Requests\ProductRequest;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ProductController extends Controller
 {
     public function index(): View
     {
-        return view('products.index');
+        $products = Product::orderBy('created_at')->get();
+        return view('products.index', compact('products'));
     }
 
     public function create(): View
@@ -23,7 +24,7 @@ class ProductController extends Controller
         return view('products.create', compact('categories'));
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(ProductRequest $request): RedirectResponse
     {
         Product::create([
             'name' => $request->name,
