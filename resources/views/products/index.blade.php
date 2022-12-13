@@ -4,7 +4,7 @@
     <h2 class="mt-4">Productos</h2>
     <div class="row">
         <div class="col">
-            <a href="{{ route('products.create') }}" class="btn btn-sm btn-success">Crear producto</a>
+            <a href="{{ route('products.create') }}" class="btn btn-md btn-success">Crear producto</a>
         </div>
     </div>
     <div class="row">
@@ -30,11 +30,28 @@
                                 </li>
                             </ul>
                         </p>
-                        <a href="#" class="btn btn-sm btn-success">Editar</a>
-                        <a href="#" class="btn btn-sm btn-danger">Eliminar</a>
+                        <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-success">Editar</a>
+                        <a 
+                            href="#" 
+                            onclick="
+                                event.preventDefault();
+                                document.getElementById('delete-product-{{$product->id}}').submit();
+                            "
+                            class="btn btn-sm btn-danger"
+                        >
+                            Eliminar
+                        </a>
+                        <form id="delete-product-{{$product->id}}" action="{{ route('products.destroy', $product->id) }}" method="POST" class="d-none">
+                            @csrf
+                            @method('DELETE')
+                        </form>
                     </div>
                 </div>
             </div>
         @endforeach
+
+        <div class="mt-3">
+            {{ $products->links('vendor.pagination.bootstrap-5') }}
+        </div>
     </div>
 @endsection

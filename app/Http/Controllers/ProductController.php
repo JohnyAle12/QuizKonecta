@@ -14,13 +14,13 @@ class ProductController extends Controller
 {
     public function index(): View
     {
-        $products = Product::orderBy('created_at')->get();
+        $products = Product::orderBy('created_at')->paginate(8);
         return view('products.index', compact('products'));
     }
 
     public function create(): View
     {
-        $categories = Category::orderBy('name')->get();
+        $categories = Category::getCategories();
         return view('products.create', compact('categories'));
     }
 
@@ -35,5 +35,31 @@ class ProductController extends Controller
         ]);
 
         return redirect()->route('products.index')->with('success', 'has guardado tu información con éxito.');
+    }
+
+    public function edit(Product $product): View
+    {
+        $categories = Category::getCategories();
+        return view('products.edit', compact('categories', 'product'));
+    }
+
+    public function update(ProductRequest $request, Product $product): RedirectResponse
+    {
+        $product->update([
+            'name' => $request->name,
+            'reference' => $request->reference,
+            'price' => $request->price,
+            'weight' => $request->weight,
+            'category_id' => $request->category,
+            'stock' => $request->stock
+        ]);
+
+        return redirect()->route('products.index')->with('success', 'has actualizado tu información con éxito.');
+    }
+
+    public function destroy(Product $product): RedirectResponse
+    {
+        $product->delete();
+        return redirect()->route('products.index')->with('success', 'has eliminado tu información con éxito.');
     }
 }
