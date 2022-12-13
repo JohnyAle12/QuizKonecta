@@ -3,6 +3,11 @@
 @section('content')
     <h2 class="mt-4">Productos</h2>
     <div class="row">
+        <div class="col">
+            <a href="{{ route('products.create') }}" class="btn btn-sm btn-success">Crear producto</a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-3 mt-4">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
