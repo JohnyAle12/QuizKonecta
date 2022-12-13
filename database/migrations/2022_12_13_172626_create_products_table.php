@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('price');
             $table->smallInteger('weight');
             $table->foreignId('category_id')->references('id')->on('categories');
-            $table->integer('stock');
+            $table->integer('stock')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
