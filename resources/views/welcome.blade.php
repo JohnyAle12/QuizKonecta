@@ -12,9 +12,9 @@
             <div class="row">
                 <div class="col">
                     @include('layouts.header')
-                    
                     <div class="row">
                         <div class="col">
+                            @include('layouts.alerts')
                             @yield('content')
                         </div>
                     </div>
