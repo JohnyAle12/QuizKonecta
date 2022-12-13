@@ -25,7 +25,9 @@
                 <div class="mb-3">
                     <label for="category" class="form-label">Categoría</label>
                     <select class="form-control" name="category" required>
-                        <option value="Seleccionar">Seleccionar</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="mb-3">
