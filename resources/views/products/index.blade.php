@@ -49,5 +49,9 @@
                 </div>
             </div>
         @endforeach
+
+        <div class="mt-3">
+            {{ $products->links('vendor.pagination.bootstrap-5') }}
+        </div>
     </div>
 @endsection
