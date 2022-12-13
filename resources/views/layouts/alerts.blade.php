@@ -1,31 +1,27 @@
 @if(session('success'))
-  <script>
-    setTimeout(function(){
-      toastr.success("{{ session('success') }}", "Hola");
-    }, 100);
-  </script>
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Hola!</strong> {{ session('success') }}.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
 @endif
 
 @if(session('danger'))
-  <script>
-    setTimeout(function(){
-      toastr.error("{{ session('danger') }}", "Hola");
-    }, 100);
-  </script>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>Hola!</strong> {{ session('success') }}.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
 @endif
 
 @if(session('info'))
-  <script>
-    setTimeout(function(){
-      toastr.info("{{ session('info') }}", "Hola");
-    }, 100);
-  </script>
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <strong>Hola!</strong> {{ session('success') }}.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
 @endif
 
 @if(session('warning'))
-  <script>
-    setTimeout(function(){
-      toastr.warning("{{ session('warning') }}", "Hola");
-    }, 100);
-  </script>
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>Hola!</strong> {{ session('success') }}.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
 @endif
