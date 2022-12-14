@@ -32,9 +32,15 @@ class StoreController extends Controller
         return redirect()->route('store.index')->with('danger', 'no se ha agregado el producto, no tiene stock');
     }
 
-    public function order(): View
+    public function cart(): View
     {
         [$products, $totals] = $this->storeService->getOrderProducts('cart');
-        return view('store.order', compact('products', 'totals'));
+        return view('store.cart', compact('products', 'totals'));
+    }
+
+    public function emptyOrder(): RedirectResponse
+    {
+        $this->storeService->deleteOrderProducts('cart');
+        return redirect()->route('cart.index')->with('success', 'has vaciado la orden con éxito');
     }
 }

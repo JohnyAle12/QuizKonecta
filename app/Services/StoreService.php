@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\Product;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cache;
 
 class StoreService
@@ -31,6 +30,11 @@ class StoreService
         $products = $this->getProducts($currentCart);
         $totals = $this->getTotals($products);
         return [$products, $totals];
+    }
+
+    public function deleteOrderProducts(string $name): void
+    {
+        Cache::forget($name);
     }
 
     private function getTotals(array $products): array

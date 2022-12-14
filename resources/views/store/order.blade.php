@@ -1,35 +1,36 @@
 @extends('welcome')
 
 @section('content')
-    <h2 class="mt-4">Orden de productos</h2>
+    <h2 class="mt-4">Ordenes pendientes</h2>
     <div class="row mt-5">
-        <div class="col-6">
-            <ol class="list-group list-group-numbered">
-                @foreach ($products as $product)
-                    <li class="list-group-item d-flex justify-content-between align-items-start">
-                        <div class="ms-2 me-auto">
-                            <div class="fw-bold">{{ $product['name'] }}</div>
-                            <p>{{ $product['reference'] }}</p>
-                            <div class="badge bg-success rounded-pill ml-3">
-                                ${{ number_format($product['price'], 0, ',', '.') }}
-                                <small>Unidad</small>
-                            </div>
-                            <div class="badge bg-success rounded-pill ml-3">
-                                ${{ number_format($product['total'], 0, ',', '.') }}
-                                <small>Total</small>
-                            </div>
-                        </div>
-                        <span class="badge bg-primary rounded-pill mr-3">{{ $product['quantity'] }} <small>Unidades</small></span>
-                    </li>
-                @endforeach
-            </ol>
-            <div class="col mt-3">
-                <div class="fw-bold">Productos: {{ countProductsOrder('cart') }} Unidades</div>
-                <div class="fw-bold">Subtotal (IVA 19%): {{ number_format($totals['subtotal'], 0, ',', '.') }}</div>
-                <div class="fw-bold">Total: {{ number_format($totals['total'], 0, ',', '.') }}</div>
+        <div class="col-8">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Zona</th>
+                    <th scope="col">Subtotal</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Fecha</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    @foreach ($orders as $order)
+                        <tr>
+                            <th scope="row">{{$order->id}}</th>
+                            <td>{{$order->username}}</td>
+                            <td>{{$order->service_zone}}</td>
+                            <td>{{$order->subtotal}}</td>
+                            <td>{{$order->total}}</td>
+                            <td>{{$order->created_at}}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="mt-3">
+                {{ $orders->links('vendor.pagination.bootstrap-5') }}
             </div>
-            <a class="btn btn-success mt-4">Hacer pedido</a>
-            <a class="btn btn-danger mt-4">Vaciar orden</a>
         </div>
     </div>
 @endsection
