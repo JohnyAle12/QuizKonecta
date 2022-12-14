@@ -20,3 +20,5 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', fn() => view('welcome'))->name('welcome');
 Route::resource('products', ProductController::class)->names('products');
 Route::get('store', [StoreController::class, 'index'])->name('store.index');
+Route::get('add-order/{product}', [StoreController::class, 'addProductToOrder'])->name('add.order.product');
+Route::get('order', [StoreController::class, 'order'])->name('order.index');
