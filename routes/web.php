@@ -25,4 +25,4 @@ Route::get('add-order/{product}', [StoreController::class, 'addProductToOrder'])
 Route::get('carrito', [StoreController::class, 'cart'])->name('cart.index');
 Route::get('empty-order', [StoreController::class, 'emptyOrder'])->name('order.empty');
 Route::get('save-order', [OrderController::class, 'saveOrder'])->name('order.save');
-Route::get('order', [StoreController::class, 'order'])->name('order.index');
+Route::get('order', [OrderController::class, 'order'])->name('order.index');

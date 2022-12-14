@@ -35,17 +35,12 @@ class StoreController extends Controller
     public function cart(): View
     {
         [$products, $totals] = $this->storeService->getOrderProducts('cart');
-        return view('store.order', compact('products', 'totals'));
+        return view('store.cart', compact('products', 'totals'));
     }
 
     public function emptyOrder(): RedirectResponse
     {
         $this->storeService->deleteOrderProducts('cart');
         return redirect()->route('cart.index')->with('success', 'has vaciado la orden con éxito');
-    }
-
-    public function order(): View
-    {
-        return view('store.order', compact('products', 'totals'));
     }
 }
