@@ -8,13 +8,19 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\View\View;
 use App\Http\Requests\ProductRequest;
+use App\Services\ProductService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class ProductController extends Controller
 {
+    public function __construct(
+        private ProductService $productService
+    )
+    {}
+
     public function index(): View
     {
-        $products = Product::orderBy('created_at')->paginate(8);
+        $products = $this->productService->getProducts();
         return view('products.index', compact('products'));
     }
 
@@ -26,14 +32,7 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request): RedirectResponse
     {
-        Product::create([
-            'name' => $request->name,
-            'reference' => $request->reference,
-            'price' => $request->price,
-            'weight' => $request->weight,
-            'category_id' => $request->category
-        ]);
-
+        $this->productService->save($request);
         return redirect()->route('products.index')->with('success', 'has guardado tu información con éxito.');
     }
 
@@ -45,15 +44,7 @@ class ProductController extends Controller
 
     public function update(ProductRequest $request, Product $product): RedirectResponse
     {
-        $product->update([
-            'name' => $request->name,
-            'reference' => $request->reference,
-            'price' => $request->price,
-            'weight' => $request->weight,
-            'category_id' => $request->category,
-            'stock' => $request->stock
-        ]);
-
+        $this->productService->update($request, $product);
         return redirect()->route('products.index')->with('success', 'has actualizado tu información con éxito.');
     }
 
