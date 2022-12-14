@@ -12,7 +12,7 @@ class ProductService
 {
     public function getProducts(int $perPage = 8): LengthAwarePaginator
     {
-        return Product::orderBy('created_at')->paginate($perPage);
+        return Product::orderBy('created_at', 'desc')->paginate($perPage);
     }
 
     public function save(ProductRequest $request): void

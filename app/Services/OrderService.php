@@ -6,6 +6,7 @@ namespace App\Services;
 
 use App\Models\ClientOrder;
 use App\Models\ClientOrderProduct;
+use App\Models\Product;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class OrderService
@@ -32,7 +33,7 @@ class OrderService
     {
         return ClientOrder::select('client_orders.*', 'users.name AS username')
             ->join('users', 'users.id', 'client_orders.user_id')
-            ->orderBy('created_at')->paginate($perPage);
+            ->orderBy('client_orders.created_at', 'desc')->paginate($perPage);
     }
 
     private function createOrder(array $totals): ClientOrder
@@ -51,6 +52,7 @@ class OrderService
     ): array
     {
         return array_map(function($product) use ($clientOrder){
+            $this->discountStock($product['id'], $product['quantity']);
             return ClientOrderProduct::create([
                 'client_order_id' => $clientOrder->id,
                 'product_id' => $product['id'],
@@ -59,5 +61,10 @@ class OrderService
                 'subtotal' => (int) ceil($product['total'] / 1.19)
             ]);
         }, $products);
+    }
+
+    private function discountStock(int $productId, int $quantity): void
+    {
+        Product::where('id', $productId)->decrement('stock', $quantity);
     }
 }
