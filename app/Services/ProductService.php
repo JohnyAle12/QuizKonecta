@@ -37,5 +37,5 @@ class ProductService
             'stock' => $request->stock
         ]);
     }
-
+    
 }
