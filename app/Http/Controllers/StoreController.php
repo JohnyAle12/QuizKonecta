@@ -26,13 +26,15 @@ class StoreController extends Controller
 
     public function addProductToOrder(Product $product): RedirectResponse
     {
-        $this->storeService->addToCart($product->id, 'cart');
-        return redirect()->route('store.index')->with('success', 'has agregado el producto con éxito.');
+        if($this->storeService->addToCart($product->id, 'cart')){
+            return redirect()->route('store.index')->with('success', 'has agregado el producto con éxito');
+        }
+        return redirect()->route('store.index')->with('danger', 'no se ha agregado el producto, no tiene stock');
     }
 
     public function order(): View
     {
-        $products = $this->storeService->getOrderProducts('cart');
-        return view('store.order', compact('products'));
+        [$products, $totals] = $this->storeService->getOrderProducts('cart');
+        return view('store.order', compact('products', 'totals'));
     }
 }
