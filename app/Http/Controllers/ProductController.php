@@ -53,4 +53,21 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index')->with('success', 'has eliminado tu información con éxito.');
     }
+
+    public function productQueries(string $mode): RedirectResponse
+    {
+        switch ($mode) {
+            case 'products-with-more-stock':
+                $product = $this->productService->getProdsctWithMoreStock();
+                $message = 'El proucto con mas Stock es '. $product->name .' con '. $product->stock .' unidades.';
+                return redirect()->route('products.index')->with('info', $message);
+            case 'products-with-more-sales':
+                $product = $this->productService->getProdsctWithMoreSales();
+                $message = 'El proucto con mas Ventas es '. $product->name .' con '. $product->quantity .' unidades.';
+                return redirect()->route('products.index')->with('info', $message);
+            default:
+                return redirect()->route('products.index');
+        }
+        // return redirect()->route('products.index')->with('success', 'has eliminado tu información con éxito.');
+    }
 }
