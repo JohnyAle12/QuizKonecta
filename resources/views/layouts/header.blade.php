@@ -12,6 +12,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('store.index') }}">Tienda</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('order.index') }}">Orden<small class="text-danger">({{ countProductsOrder('cart') }})</small></a>
+            </li>
         </div>
     </div>
 </nav>

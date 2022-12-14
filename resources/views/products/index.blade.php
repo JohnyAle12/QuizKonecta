@@ -21,7 +21,7 @@
                                     <small>Unidades</small>
                                 </li>
                                 <li>
-                                    Precio: ${{ $product->price }}
+                                    Precio: ${{ number_format($product->price, 0, ',', '.') }}
                                     <small>COP</small>
                                 </li>
                                 <li>
